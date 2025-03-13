@@ -10,7 +10,6 @@
             <userRemoteConfigs>
                 <hudson.plugins.git.UserRemoteConfig>
                     <url>https://github.com/v3nky13/oneclick.git</url>
-                    <credentialsId>your-credential-id</credentialsId>
                 </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>
             <branches>
@@ -22,12 +21,12 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>Jenkinsfile</scriptPath>  <!-- Looks for a Jenkinsfile in repo -->
+        <scriptPath>daily.Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers>
         <hudson.triggers.SCMTrigger>
-            <spec>H/5 * * * *</spec>  <!-- Polls repo every 5 mins -->
+            <spec>H/5 * * * *</spec>
         </hudson.triggers.SCMTrigger>
     </triggers>
     <disabled>false</disabled>
