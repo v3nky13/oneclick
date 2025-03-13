@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/v3nky13/oneclick.git'
+                git branch: 'main', url: 'https://github.com/v3nky13/oneclick.git'
             }
         }
 
