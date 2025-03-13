@@ -29,7 +29,7 @@
             <configVersion>2</configVersion>
             <userRemoteConfigs>
                 <hudson.plugins.git.UserRemoteConfig>
-                    <url>https://github.com/your-repo/python-project.git</url> <!-- Replace with your repo -->
+                    <url>https://github.com/v3nky13/oneclick.git</url> <!-- Replace with your repo -->
                 </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>
             <branches>

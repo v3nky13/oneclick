@@ -27,5 +27,5 @@ else:
     server.create_job(JOB_NAME, CONFIG_XML)
 
 # Trigger a build
-# server.build_job(JOB_NAME)
-# print(f"Job {JOB_NAME} triggered!")
+server.build_job(JOB_NAME)
+print(f"Job {JOB_NAME} triggered!")
