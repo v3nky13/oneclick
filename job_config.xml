@@ -1,48 +1,52 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job">
+<project>
     <actions/>
-    <description>Pipeline to build and run a Python project using SCM</description>
+    <description>Jenkins Job for OneClick Git Repository</description>
     <keepDependencies>false</keepDependencies>
-
-    <!-- Discard old builds: Keep last 10 builds, 5 artifacts -->
-    <properties>
-        <jenkins.model.BuildDiscarderProperty>
-            <strategy class="hudson.tasks.LogRotator">
-                <daysToKeep>-1</daysToKeep>
-                <numToKeep>10</numToKeep>
-                <artifactDaysToKeep>-1</artifactDaysToKeep>
-                <artifactNumToKeep>5</artifactNumToKeep>
-            </strategy>
-        </jenkins.model.BuildDiscarderProperty>
-    </properties>
-
-    <!-- Scheduled Trigger: Runs daily at 9:45 AM -->
-    <triggers>
-        <hudson.triggers.TimerTrigger>
-            <spec>45 9 * * *</spec>
-        </hudson.triggers.TimerTrigger>
-    </triggers>
-
-    <!-- Use a pipeline script from Git (SCM) -->
-    <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps">
-        <scm class="hudson.plugins.git.GitSCM" plugin="git">
-            <configVersion>2</configVersion>
-            <userRemoteConfigs>
-                <hudson.plugins.git.UserRemoteConfig>
-                    <url>https://github.com/v3nky13/oneclick.git</url> <!-- Replace with your repo -->
-                </hudson.plugins.git.UserRemoteConfig>
-            </userRemoteConfigs>
-            <branches>
-                <hudson.plugins.git.BranchSpec>
-                    <name>*/main</name> <!-- Change to the branch you want -->
-                </hudson.plugins.git.BranchSpec>
-            </branches>
-            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-            <submoduleCfg class="list"/>
-        </scm>
-        <scriptPath>daily.Jenkinsfile</scriptPath> <!-- Points to the pipeline script in repo -->
-        <lightweight>true</lightweight>
-    </definition>
-
+    <properties/>
+    <scm class="hudson.plugins.git.GitSCM">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>https://github.com/v3nky13/oneclick.git</url>
+                <credentialsId>your-credential-id</credentialsId>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/main</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+    </scm>
+    <assignedNode></assignedNode>
+    <canRoam>true</canRoam>
     <disabled>false</disabled>
-</flow-definition>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers>
+        <hudson.triggers.SCMTrigger>
+            <spec>* * * * *</spec>  <!-- Runs every minute -->
+        </hudson.triggers.SCMTrigger>
+    </triggers>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <hudson.tasks.Shell>
+            <command>
+                #!/bin/bash
+                echo "Building the project..."
+                # Add your build commands here
+            </command>
+        </hudson.tasks.Shell>
+    </builders>
+    <publishers/>
+    <buildWrappers/>
+    <tools>
+        <hudson.plugins.git.GitTool>
+            <name>Default</name>
+            <home>C:\Program Files\Git\bin\git.exe</home>
+        </hudson.plugins.git.GitTool>
+    </tools>
+</project>
