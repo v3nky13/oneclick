@@ -18,7 +18,6 @@
             <userRemoteConfigs>
                 <hudson.plugins.git.UserRemoteConfig>
                     <url>https://github.com/v3nky13/oneclick.git</url>
-                    <credentialsId></credentialsId>
                 </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>
             <branches>
@@ -33,6 +32,10 @@
         <scriptPath>daily.Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
-    <triggers/>
+    <triggers>
+        <hudson.triggers.TimerTrigger>
+            <spec>H 0 * * *</spec>
+        </hudson.triggers.TimerTrigger>
+    </triggers>
     <disabled>false</disabled>
 </flow-definition>
