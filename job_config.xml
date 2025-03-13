@@ -1,51 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<flow-definition>
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job">
     <actions/>
-    <description>Jenkins Job for OneClick Git Repository</description>
+    <description>Jenkins Pipeline Job for OneClick Git Repository</description>
     <keepDependencies>false</keepDependencies>
     <properties/>
-    <scm class="hudson.plugins.git.GitSCM">
-        <configVersion>2</configVersion>
-        <userRemoteConfigs>
-            <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/v3nky13/oneclick.git</url>
-                <credentialsId>your-credential-id</credentialsId>
-            </hudson.plugins.git.UserRemoteConfig>
-        </userRemoteConfigs>
-        <branches>
-            <hudson.plugins.git.BranchSpec>
-                <name>*/main</name>
-            </hudson.plugins.git.BranchSpec>
-        </branches>
-        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-        <submoduleCfg class="list"/>
-        <extensions/>
-    </scm>
-    <canRoam>true</canRoam>
-    <disabled>false</disabled>
-    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition">
+        <scm class="hudson.plugins.git.GitSCM">
+            <configVersion>2</configVersion>
+            <userRemoteConfigs>
+                <hudson.plugins.git.UserRemoteConfig>
+                    <url>https://github.com/v3nky13/oneclick.git</url>
+                </hudson.plugins.git.UserRemoteConfig>
+            </userRemoteConfigs>
+            <branches>
+                <hudson.plugins.git.BranchSpec>
+                    <name>*/main</name>
+                </hudson.plugins.git.BranchSpec>
+            </branches>
+            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+            <submoduleCfg class="list"/>
+            <extensions/>
+            <gitTool>Default</gitTool> <!-- Uses the system-installed Git -->
+        </scm>
+        <scriptPath>daily.Jenkinsfile</scriptPath>
+        <lightweight>true</lightweight>
+    </definition>
     <triggers>
-        <hudson.triggers.SCMTrigger>
-            <spec>H/5 * * * *</spec> <!-- Runs every 5 minutes -->
-        </hudson.triggers.SCMTrigger>
+        <hudson.triggers.TimerTrigger>
+            <spec>45 9 * * *</spec> <!-- Runs daily at 09:45 AM -->
+        </hudson.triggers.TimerTrigger>
     </triggers>
-    <concurrentBuild>false</concurrentBuild>
-    <builders>
-        <hudson.tasks.BatchFile>
-            <command>
-                echo Building the project...
-                git --version
-                dir
-            </command>
-        </hudson.tasks.BatchFile>
-    </builders>
-    <publishers/>
-    <buildWrappers/>
-    <tools>
-        <hudson.plugins.git.GitTool>
-            <name>Default</name>
-            <home>C:\Program Files\Git\bin\git.exe</home>
-        </hudson.plugins.git.GitTool>
-    </tools>
+    <disabled>false</disabled>
 </flow-definition>
