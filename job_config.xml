@@ -28,18 +28,19 @@
     <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
     <triggers>
         <hudson.triggers.SCMTrigger>
-            <spec>* * * * *</spec>  <!-- Runs every minute -->
+            <spec>H/5 * * * *</spec>  <!-- Runs every 5 minutes -->
         </hudson.triggers.SCMTrigger>
     </triggers>
     <concurrentBuild>false</concurrentBuild>
     <builders>
-        <hudson.tasks.Shell>
+        <hudson.tasks.BatchFile>
             <command>
-                #!/bin/bash
-                echo "Building the project..."
-                # Add your build commands here
+                echo Building the project...
+                REM Add your build commands here
+                git --version
+                dir
             </command>
-        </hudson.tasks.Shell>
+        </hudson.tasks.BatchFile>
     </builders>
     <publishers/>
     <buildWrappers/>
