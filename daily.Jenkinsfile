@@ -11,7 +11,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 script {
-                    bat 'python -m venv venv && venv/bin/activate'
+                    bat 'python -m venv venv && call venv\\Scripts\\activate'
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     if (fileExists('requirements.txt')) {
-                        bat 'venv/bin/activate && pip install -r requirements.txt'
+                        bat 'call venv\\Scripts\\activate && pip install -r requirements.txt'
                     }
                 }
             }
