@@ -31,10 +31,4 @@
     </hudson.triggers.TimerTrigger>
   </triggers>
   <disabled>false</disabled>
-  <tools>
-        <hudson.plugins.git.GitTool>
-            <name>Default</name>
-            <home>C:\Program Files\Git\bin\git.exe</home>
-        </hudson.plugins.git.GitTool>
-    </tools>
 </flow-definition>
