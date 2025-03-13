@@ -9,7 +9,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://your-repo-url.git</url>
+          <url>https://github.com/v3nky13/oneclick.git</url>
           <credentialsId>your-credentials-id</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
