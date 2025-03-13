@@ -1,53 +1,34 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<project>
+<flow-definition plugin="workflow-job@2.42">
     <actions/>
-    <description>Jenkins Job for OneClick Git Repository</description>
+    <description>Jenkins Pipeline Job for OneClick Git Repository</description>
     <keepDependencies>false</keepDependencies>
     <properties/>
-    <scm class="hudson.plugins.git.GitSCM">
-        <configVersion>2</configVersion>
-        <userRemoteConfigs>
-            <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/v3nky13/oneclick.git</url>
-                <credentialsId>your-credential-id</credentialsId>
-            </hudson.plugins.git.UserRemoteConfig>
-        </userRemoteConfigs>
-        <branches>
-            <hudson.plugins.git.BranchSpec>
-                <name>*/main</name>
-            </hudson.plugins.git.BranchSpec>
-        </branches>
-        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-        <submoduleCfg class="list"/>
-        <extensions/>
-    </scm>
-    <assignedNode></assignedNode>
-    <canRoam>true</canRoam>
-    <disabled>false</disabled>
-    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.90">
+        <scm class="hudson.plugins.git.GitSCM">
+            <configVersion>2</configVersion>
+            <userRemoteConfigs>
+                <hudson.plugins.git.UserRemoteConfig>
+                    <url>https://github.com/v3nky13/oneclick.git</url>
+                    <credentialsId>your-credential-id</credentialsId>
+                </hudson.plugins.git.UserRemoteConfig>
+            </userRemoteConfigs>
+            <branches>
+                <hudson.plugins.git.BranchSpec>
+                    <name>*/main</name>
+                </hudson.plugins.git.BranchSpec>
+            </branches>
+            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+            <submoduleCfg class="list"/>
+            <extensions/>
+        </scm>
+        <scriptPath>Jenkinsfile</scriptPath>  <!-- Looks for a Jenkinsfile in repo -->
+        <lightweight>true</lightweight>
+    </definition>
     <triggers>
         <hudson.triggers.SCMTrigger>
-            <spec>H/5 * * * *</spec>  <!-- Runs every 5 minutes -->
+            <spec>H/5 * * * *</spec>  <!-- Polls repo every 5 mins -->
         </hudson.triggers.SCMTrigger>
     </triggers>
-    <concurrentBuild>false</concurrentBuild>
-    <builders>
-        <hudson.tasks.BatchFile>
-            <command>
-                echo Building the project...
-                REM Add your build commands here
-                git --version
-                dir
-            </command>
-        </hudson.tasks.BatchFile>
-    </builders>
-    <publishers/>
-    <buildWrappers/>
-    <tools>
-        <hudson.plugins.git.GitTool>
-            <name>Default</name>
-            <home>C:\Program Files\Git\bin\git.exe</home>
-        </hudson.plugins.git.GitTool>
-    </tools>
-</project>
+    <disabled>false</disabled>
+</flow-definition>
