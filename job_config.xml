@@ -20,7 +20,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>daily.Jenkinsfile</scriptPath>
+        <scriptPath>Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <disabled>false</disabled>
