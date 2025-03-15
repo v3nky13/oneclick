@@ -11,8 +11,13 @@ pipeline {
         stage('Check Python Version') {
             steps {
                 script {
-                    bat 'python --version'
-                    bat 'where python'
+                    if (isUnix()) {
+                        sh 'python3 --version'
+                        sh 'which python3'
+                    } else {
+                        bat 'python --version'
+                        bat 'where python'
+                    }
                 }
             }
         }
@@ -20,7 +25,11 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 script {
-                    bat 'python -m venv venv && call venv\\Scripts\\activate'
+                    if (isUnix()) {
+                        sh 'python3 -m venv venv && source venv/bin/activate'
+                    } else {
+                        bat 'python -m venv venv && call venv\\Scripts\\activate'
+                    }
                 }
             }
         }
@@ -29,7 +38,11 @@ pipeline {
             steps {
                 script {
                     if (fileExists('requirements.txt')) {
-                        bat 'call venv\\Scripts\\activate && pip install -r requirements.txt'
+                        if (isUnix()) {
+                            sh 'source venv/bin/activate && pip install -r requirements.txt'
+                        } else {
+                            bat 'call venv\\Scripts\\activate && pip install -r requirements.txt'
+                        }
                     }
                 }
             }
@@ -38,7 +51,11 @@ pipeline {
         stage('Run Code') {
             steps {
                 script {
-                    bat 'call venv\\Scripts\\activate && python main.py'
+                    if (isUnix()) {
+                        sh 'source venv/bin/activate && python main.py'
+                    } else {
+                        bat 'call venv\\Scripts\\activate && python main.py'
+                    }
                 }
             }
         }

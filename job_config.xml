@@ -1,15 +1,6 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.40">
-    <actions>
-        <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction/>
-        <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
-            <jobProperties/>
-            <triggers/>
-            <parameters/>
-            <options/>
-        </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
-    </actions>
-    <description>Jenkins pipeline job for running daily builds</description>
+    <description>Jenkins pipeline job</description>
     <keepDependencies>false</keepDependencies>
     <properties/>
     <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.90">
@@ -32,10 +23,5 @@
         <scriptPath>daily.Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
-    <triggers>
-        <hudson.triggers.TimerTrigger>
-            <spec>H 0 * * *</spec>
-        </hudson.triggers.TimerTrigger>
-    </triggers>
     <disabled>false</disabled>
 </flow-definition>
