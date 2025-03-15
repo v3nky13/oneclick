@@ -15,7 +15,7 @@ server = jenkins.Jenkins(JENKINS_URL, username=JENKINS_USERNAME, password=JENKIN
 
 # Job name and configuration XML
 JOB_NAME = "MyJob"
-with open("job_config.xml", "r") as f:
+with open("config.xml", "r") as f:
     CONFIG_XML = f.read()
 
 # Check if job exists
@@ -25,7 +25,3 @@ if server.job_exists(JOB_NAME):
 else:
     print(f"Creating new job: {JOB_NAME}")
     server.create_job(JOB_NAME, CONFIG_XML)
-
-# Trigger a build
-server.build_job(JOB_NAME)
-print(f"Job {JOB_NAME} triggered!")
