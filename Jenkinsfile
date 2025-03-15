@@ -8,7 +8,7 @@ pipeline {
             }
         }
 
-        stage('Check Python Version') {
+        stage('Check For Python') {
             steps {
                 script {
                     if (isUnix()) {
@@ -22,39 +22,13 @@ pipeline {
             }
         }
 
-        stage('Setup Environment') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'python3 -m venv venv && source venv/bin/activate'
-                    } else {
-                        bat 'python -m venv venv && call venv\\Scripts\\activate'
-                    }
-                }
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    if (fileExists('requirements.txt')) {
-                        if (isUnix()) {
-                            sh 'source venv/bin/activate && pip install -r requirements.txt'
-                        } else {
-                            bat 'call venv\\Scripts\\activate && pip install -r requirements.txt'
-                        }
-                    }
-                }
-            }
-        }
-
         stage('Run Code') {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'source venv/bin/activate && python main.py'
+                        sh 'python3 main.py'
                     } else {
-                        bat 'call venv\\Scripts\\activate && python main.py'
+                        bat 'python main.py'
                     }
                 }
             }
